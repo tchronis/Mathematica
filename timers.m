@@ -1,7 +1,11 @@
-(*Global : totalhours*)
+(*Global : totaltime*)
+(*Create 10 timers*)
+ClearAll[totaltime];
+totaltime = Table[0, {10}];
+
 (*Start, Pause and Reset can be accessed only from within the function*)
 ClearAll[timer];
-timer := DynamicModule[{start = AbsoluteTime[], total = 0, f = 0},
+timer[i_] := DynamicModule[{start = AbsoluteTime[], total = 0, f = 0},
    Row[{
      Button["Start", If[f == 0, start = AbsoluteTime[]; f = 1], 
       Background -> Green, BaseStyle -> {"GenericButton", 16, Bold}, 
@@ -18,7 +22,7 @@ timer := DynamicModule[{start = AbsoluteTime[], total = 0, f = 0},
      "     ",
      Framed@Text@Style[
         Dynamic[Clock[{1, 1, 1}, 1]; 
-         totalhours = 
+         totaltime[[i]] = 
           If[f == 1, Floor[total + AbsoluteTime[] - start], 
            Floor[total]]]
         , Bold, FontSize -> 55]
