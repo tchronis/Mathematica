@@ -1,3 +1,19 @@
+ClearAll[all, x, y, z, f, g, h, a, b, c];
+
+(*Function to remove hold and turn to string an expression*)
+ClearAll[toString];
+toString[hold_] :=
+ (
+  (*Command String*)
+  StringReplace[(*To remove empty spaces*)
+   StringTake[(*To remove the Hold Head*)
+    ToString[
+     hold
+     ], {6, -2}]
+   , " " -> ""]
+  )
+
+
 all = {
    {x, f, , Hold@(x // f)},
    {x, f, , Hold@(Nest[f, x, 3])},
